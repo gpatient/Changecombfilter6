@@ -5,6 +5,7 @@
  * dd org MYORGFromOpendsp
  *ff  desc ChangeFromCombfilter
  * ff license MmFromMit
+ * @versin 0.21
  */
 
 export default CombFilter6;
@@ -45,13 +46,15 @@ CombFilter6.prototype.run = function(input){
   this.buffer[this.index] /=this.divNum;
   output=this.buffer[this.index];
   this.sum+=output;
-  if(this.max>output)this.max=output;
+  var qqw=Math.abs(output);
+  if(this.max<qqw)this.max=qqw;
+  
   if (++this.index === this.size) 
   {
     this.index = 0;this.k*=-1;
     this.average=this.sum/this.size;this.sum=0;
-    if(Math.abs(this.max)>1.0)
-      this.divNum=Math.abs(this.max);
+    if(this.max>1.0)
+      this.divNum=this.max;
       else{ 
         this.divNum=1.0/((this.feedback+1.0)/2.0);
         if(Math.random()<0.9){
