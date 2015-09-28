@@ -43,7 +43,7 @@ CombFilter6.prototype.run = function(input){
   this.buffer[this.index] =this.k * input * this.inputMul + this.filter * this.feedback;
   this.buffer[this.index] -=this.average;
   this.buffer[this.index] /=this.divNum;
-  
+  output=this.buffer[this.index];
   this.sum+=output;
   if(this.max>output)this.max=output;
   if (++this.index === this.size) 
